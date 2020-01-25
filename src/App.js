@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
+import { click } from './actions/click'
 
-function App() {
+function App({onClick}) {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +20,20 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={onClick}>Click me</button>
       </header>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  ...state
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onClick: () => dispatch(click())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
